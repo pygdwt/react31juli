@@ -39,9 +39,7 @@ const App = () => {
     </form>
   );
 
-  const showNews = () => {
-    return news.map((n, i) => <p key={i}>{n.title}</p>);
-  };
+  const showNews = () => news.map((n, i) => <p key={i}>{n.title}</p>);
 
   return (
     <div>
