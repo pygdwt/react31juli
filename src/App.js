@@ -11,10 +11,10 @@ const App = () => {
 
   //fetch
   const fetchNews = () => {
-    setLoading(true)
+    setLoading(true);
     fetch(url)
       .then(result => result.json())
-      .then(data => (setNews(data.hits), setLoading (false)))
+      .then(data => (setNews(data.hits), setLoading(false)))
       .catch(error => console.log(error));
   };
   useEffect(() => {
@@ -30,17 +30,25 @@ const App = () => {
     setUrl(`https://hn.algolia.com/api/v1/search?query= ${searchQuery}`);
   };
 
+  const showLoading = () => (loading ? <h2>Please wait...</h2> : "");
+
+  const searchForm = () => (
+    <form onSubmit={handleSubmit}>
+      <input type="text" value={searchQuery} onChange={handleChange} />
+      <button>Search</button>
+    </form>
+  );
+
+  const showNews = () => {
+    return news.map((n, i) => <p key={i}>{n.title}</p>);
+  };
+
   return (
-    <div>     
-      <h2>News</h2>
-      {loading ? <h2>Please wait...</h2> : ""}
-      <form onSubmit={handleSubmit}>
-        <input type="text" value={searchQuery} onChange={handleChange} />
-        <button>Search</button>
-      </form>
-      {news.map((n, i) => (
-        <p key={i}>{n.title}</p>
-      ))}
+    <div>
+      <h2>Newspaper</h2>
+      {showLoading()}
+      {searchForm()}
+      {showNews()}
     </div>
   );
 };
